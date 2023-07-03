@@ -1,0 +1,42 @@
+swagger: "2.0"
+info:
+  title: API with multiple endpoints
+  description: Open source project. An API with multiple endpoints that allows user to input a business name, input a big idea description, and input a business case description.
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+host: api.stage_0_product_api.com
+basePath: /v1
+paths:
+  /product:
+    get:
+      summary: Returns a list of user info.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, user info rendered properly.
+          type: array # not sure if this should be a string
+          items:
+            type: object
+            properties:
+              person:
+                type: object
+              id:
+                type: integer
+              name:
+                type: string
+        400:
+          description: User data not found.
+        default: An unknown error has occurred.
+  Name:
+    description:
+      type: string
+  BigIdea:
+    description:
+      type: string
+  BusinessCase:
+    description:
+      type: string
+
