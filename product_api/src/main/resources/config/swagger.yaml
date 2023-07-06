@@ -1,42 +1,144 @@
-swagger: "2.0"
+openapi: 3.0.3
 info:
-  title: API with multiple endpoints
-  description: Open source project. An API with multiple endpoints that allows user to input a business name, input a big idea description, and input a business case description.
-  version: 1.0.0
+  title: StageZero Product - OpenAPI 3.0
+  description: foo
+  contact:
+    email: info@agile-learning.institute
   license:
     name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0
-host: api.stage_0_product_api.com
-basePath: /v1
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
 paths:
   /product:
-    get:
-      summary: Returns a list of user info.
-      produces:
-        - application/json
+    post:
+      summary: Add a new product
+      description: ''
+      requestBody:
+        description: a new product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
       responses:
-        200:
-          description: OK, user info rendered properly.
-          type: array # not sure if this should be a string
-          items:
-            type: object
-            properties:
-              person:
-                type: object
-              id:
-                type: integer
-              name:
-                type: string
-        400:
-          description: User data not found.
-        default: An unknown error has occurred.
-  Name:
-    description:
-      type: string
-  BigIdea:
-    description:
-      type: string
-  BusinessCase:
-    description:
-      type: string
-
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'          
+        '405':
+          description: Invalid input
+  /product/{id}:
+    get:
+      summary: Get a product by ID
+      description: Returns a single product
+      parameters:
+        - name: id
+          in: path
+          description: ID of product to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+    put:
+      summary: Updates a Product in the store
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          description: ID of product that needs to be updated
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: a product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '405':
+          description: Invalid input
+        '200':
+          description: successful operation
+  /config:
+    get:
+      summary: ''
+      description: get configuration information
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+        '405':
+          description: Invalid input
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 0
+          maxLength: 0
+        bigIdea:
+          type: string
+          minLength: 0
+          maxLength: 0
+        businessCase:
+          type: string
+          minLength: 0
+          maxLength: 0
+        status:
+          type: string
+          description: Product Status
+          example: approved
+          enum:
+            - draft
+            - actives
+            - deleted
+        by:
+          description: The Profile UUID of the user taking this action
+          type: string
+          format: UUID
+        at:
+          description: The Time when the action took place
+          type: string
+          format: ISODate Time
+        from:
+          description: The IP address used to take the action
+          type: string
+          format: IP
+    Config:
+      type: object
+      properties:
+        version:
+            type: string
+            minLength: 0
+            maxLength: 0
+  requestBodies:
+    Product:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
