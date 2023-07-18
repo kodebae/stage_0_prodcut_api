@@ -12,5 +12,4 @@ public class Product {
 
     // Add getters and setters for all properties
     // Add any additional constructors or methods
-
 }
