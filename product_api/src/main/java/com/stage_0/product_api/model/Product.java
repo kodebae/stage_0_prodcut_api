@@ -1,28 +1,19 @@
 package com.stage_0.product_api.model;
 
 public class Product {
+import java.util.UUID;
 
-    private int id;
-    private String name;
+    public class Product {
+        private UUID id;
+        private String name;
+        private String bigIdea;
+        private String businessCase;
+        private String status;
 
-    public Product(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+        // Add other properties
 
-    public int getId() {
-        return id;
-    }
+        // Add getters and setters for all properties
+        // Add any additional constructors or methods
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
